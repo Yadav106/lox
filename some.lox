@@ -1,0 +1,17 @@
+// this is a comment
+
+var breakfast = "bagels";
+print breakfast; // "bagels".
+breakfast = "potatoes";
+print breakfast; // "potatoes".
+
+/* this is a block comment
+this is another statement in a block comment
+this is the final line */
+
+// conditions
+if (condition) {
+  print "yes";
+} else {
+  print "no";
+}
