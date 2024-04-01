@@ -4,10 +4,16 @@ import com.yadav.lox.Expr.Binary;
 import com.yadav.lox.Expr.Grouping;
 import com.yadav.lox.Expr.Literal;
 import com.yadav.lox.Expr.Unary;
+import com.yadav.lox.Expr.Ternary;
 
 class AstPrinter implements Expr.Visitor<String> {
   String print(Expr expr) {
     return expr.accept(this);
+  }
+
+  @Override
+  public String visitTernaryExpr(Ternary expr) {
+    return parenthesize(expr.operator_one.lexeme, expr.left, expr.mid, expr.right);
   }
 
   @Override
