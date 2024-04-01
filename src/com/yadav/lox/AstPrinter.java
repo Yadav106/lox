@@ -13,7 +13,7 @@ class AstPrinter implements Expr.Visitor<String> {
 
   @Override
   public String visitTernaryExpr(Ternary expr) {
-    return parenthesize(expr.operator_one.lexeme, expr.left, expr.mid, expr.right);
+    return parenthesize_ternary(expr.left, expr.mid, expr.right);
   }
 
   @Override
@@ -35,6 +35,24 @@ class AstPrinter implements Expr.Visitor<String> {
   @Override
   public String visitUnaryExpr(Unary expr) {
     return parenthesize(expr.operator.lexeme, expr.right);
+  }
+
+  private String parenthesize_ternary(Expr left, Expr mid, Expr right) {
+    StringBuilder builder = new StringBuilder();
+
+    builder.append("(");
+    builder.append("? ");
+    builder.append("( ");
+    builder.append(left.accept(this));
+    builder.append(" )");
+    builder.append("(");
+    builder.append(": ");
+    builder.append(mid.accept(this));
+    builder.append(" ");
+    builder.append(right.accept(this));
+    builder.append(" )");
+    builder.append(")");
+    return builder.toString();
   }
 
   private String parenthesize(String name, Expr... exprs) {

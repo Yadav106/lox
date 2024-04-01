@@ -94,12 +94,27 @@ class Parser {
   }
 
   private Expr factor() {
-    Expr expr = unary();
+    Expr expr = ternary();
 
     while(match(STAR, SLASH)) {
       Token operator = previous();
-      Expr right = unary();
+      Expr right = ternary();
       expr = new Expr.Binary(expr, operator, right);
+    }
+
+    return expr;
+  }
+
+  private Expr ternary() {
+    Expr expr = unary();
+
+    while(match(QUESTION)) {
+      Token question = previous();
+      Expr mid = ternary();
+      consume(COLON, "Expected a ':' in ternary expression");
+      Token colon = previous();
+      Expr right = ternary();
+      expr = new Expr.Ternary(expr, question, mid, colon, right);
     }
 
     return expr;
