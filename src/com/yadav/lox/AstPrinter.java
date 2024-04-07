@@ -4,6 +4,7 @@ import com.yadav.lox.Expr.Binary;
 import com.yadav.lox.Expr.Grouping;
 import com.yadav.lox.Expr.Literal;
 import com.yadav.lox.Expr.Unary;
+import com.yadav.lox.Expr.Variable;
 import com.yadav.lox.Expr.Ternary;
 
 class AstPrinter implements Expr.Visitor<String> {
@@ -55,6 +56,17 @@ class AstPrinter implements Expr.Visitor<String> {
     return builder.toString();
   }
 
+  @Override
+  public String visitVariableExpr(Variable expr) {
+    StringBuilder builder = new StringBuilder();
+
+    builder.append("(");
+    builder.append(expr.name);
+    builder.append(")");
+
+    return builder.toString();
+  }
+
   private String parenthesize(String name, Expr... exprs) {
     StringBuilder builder = new StringBuilder();
 
@@ -80,4 +92,5 @@ class AstPrinter implements Expr.Visitor<String> {
 
     System.out.println(new AstPrinter().print(expression));
   }
+
 }
