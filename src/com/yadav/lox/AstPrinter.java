@@ -1,5 +1,6 @@
 package com.yadav.lox;
 
+import com.yadav.lox.Expr.Assign;
 import com.yadav.lox.Expr.Binary;
 import com.yadav.lox.Expr.Grouping;
 import com.yadav.lox.Expr.Literal;
@@ -67,6 +68,19 @@ class AstPrinter implements Expr.Visitor<String> {
     return builder.toString();
   }
 
+  @Override
+  public String visitAssignExpr(Assign expr) {
+    StringBuilder builder = new StringBuilder();
+
+    builder.append("(").append(expr.name);
+    builder.append(" ");
+    builder.append(expr.value);
+    builder.append(")");
+
+    return builder.toString();
+  }
+
+
   private String parenthesize(String name, Expr... exprs) {
     StringBuilder builder = new StringBuilder();
 
@@ -92,5 +106,4 @@ class AstPrinter implements Expr.Visitor<String> {
 
     System.out.println(new AstPrinter().print(expression));
   }
-
 }
