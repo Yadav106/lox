@@ -4,6 +4,7 @@ import com.yadav.lox.Expr.Assign;
 import com.yadav.lox.Expr.Binary;
 import com.yadav.lox.Expr.Grouping;
 import com.yadav.lox.Expr.Literal;
+import com.yadav.lox.Expr.Logical;
 import com.yadav.lox.Expr.Unary;
 import com.yadav.lox.Expr.Variable;
 import com.yadav.lox.Expr.Ternary;
@@ -16,6 +17,11 @@ class AstPrinter implements Expr.Visitor<String> {
   @Override
   public String visitTernaryExpr(Ternary expr) {
     return parenthesize_ternary(expr.left, expr.mid, expr.right);
+  }
+
+  @Override
+  public String visitLogicalExpr(Logical expr) {
+    return parenthesize(expr.operator.lexeme, expr.left, expr.right);
   }
 
   @Override
