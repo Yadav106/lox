@@ -2,6 +2,7 @@ package com.yadav.lox;
 
 import com.yadav.lox.Expr.Assign;
 import com.yadav.lox.Expr.Binary;
+import com.yadav.lox.Expr.Call;
 import com.yadav.lox.Expr.Grouping;
 import com.yadav.lox.Expr.Literal;
 import com.yadav.lox.Expr.Logical;
@@ -111,5 +112,11 @@ class AstPrinter implements Expr.Visitor<String> {
       );
 
     System.out.println(new AstPrinter().print(expression));
+  }
+
+  @Override
+  public String visitCallExpr(Call expr) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'visitCallExpr'");
   }
 }

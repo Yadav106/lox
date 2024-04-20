@@ -1,8 +1,10 @@
 package com.yadav.lox;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import com.yadav.lox.Expr.Assign;
+import com.yadav.lox.Expr.Call;
 import com.yadav.lox.Stmt.While;
 
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
@@ -177,6 +179,19 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
       default:
         return null;
     }
+  }
+
+  @Override
+  public Object visitCallExpr(Call expr) {
+    Object callee = evaluate(expr.callee);
+
+    List<Object> args = new ArrayList<>();
+    for (Expr argument : expr.arguments) {
+      args.add(evaluate(argument));
+    }
+
+    LoxCallable function = (LoxCallable)callee;
+    return function.call(this, args);
   }
 
   @Override

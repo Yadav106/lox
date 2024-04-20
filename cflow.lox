@@ -1,0 +1,32 @@
+if (true) {
+  print "First condition is true";
+} else {
+  print "First condition is false";
+}
+
+if (false) {
+  print "Second condition is true";
+} else {
+  print "Second condition is false";
+}
+
+print "";
+
+print true and "hello 1";
+print false and "hello 2";
+print true or "hello 3";
+print false or "hello 4";
+
+print "";
+
+var a = 0;
+while (a < 3) {
+  print a;
+  a = a + 1;
+}
+
+print "";
+
+for (var a = 0; a < 5; a = a + 1) {
+  print a;
+}
