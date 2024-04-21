@@ -1,0 +1,17 @@
+var a = clock();
+var sum = 0;
+
+var i = 0;
+while (i < 10000000) {
+  sum = sum + i;
+  print sum;
+  i = i + 1;
+}
+
+print sum;
+
+var b = clock();
+
+var totalTime = b - a;
+
+print totalTime; 

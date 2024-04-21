@@ -8,7 +8,26 @@ import com.yadav.lox.Expr.Call;
 import com.yadav.lox.Stmt.While;
 
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
-  private Environment environment = new Environment();
+  private Environment globals = new Environment();
+  private Environment environment = globals;
+
+  Interpreter() {
+    globals.define("clock", new LoxCallable() {
+      @Override
+      public int arity() { return 0; }
+
+      @Override
+      public Object call(Interpreter interpreter, List<Object> args) {
+        return (double)System.currentTimeMillis() / 1000.0;
+      }
+
+      @Override
+      public String toString() {
+        return "<native fn>";
+      }
+    });
+  }
+
   void interpret(List<Stmt> statements) {
     try {
       for (Stmt statement : statements) {
@@ -190,7 +209,14 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
       args.add(evaluate(argument));
     }
 
+    if (!(callee instanceof LoxCallable)) {
+      throw new RuntimeError(expr.paren, "Can only call functions and classes.");
+    }
+
     LoxCallable function = (LoxCallable)callee;
+    if (args.size() != function.arity()) {
+      throw new RuntimeError(expr.paren, "Expected " + function.arity() + " arguments but got " + args.size() + ".");
+    }
     return function.call(this, args);
   }
 
