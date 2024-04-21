@@ -1,0 +1,8 @@
+fun log(val) {
+  var val = "nice";
+  print val;
+}
+
+var val = "Hello World";
+log(val);
+print val;

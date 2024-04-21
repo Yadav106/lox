@@ -1,0 +1,15 @@
+fun outerFunction() {
+  var i = 0;
+
+  fun innerFunction() {
+    i = i + 1;
+    print i;
+  }
+
+  return innerFunction;
+}
+
+var closure = outerFunction();
+
+closure();
+closure();
