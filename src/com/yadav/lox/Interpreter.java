@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 import com.yadav.lox.Expr.Assign;
 import com.yadav.lox.Expr.Call;
+import com.yadav.lox.Stmt.Function;
 import com.yadav.lox.Stmt.While;
 
 class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
-  private Environment globals = new Environment();
+  public Environment globals = new Environment();
   private Environment environment = globals;
 
   Interpreter() {
@@ -78,6 +79,22 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
   public Void visitExpressionStmt(Stmt.Expression stmt) {
     evaluate(stmt.expression);
     return null;
+  }
+
+
+  @Override
+  public Void visitFunctionStmt(Function stmt) {
+    LoxFunction function = new LoxFunction(stmt);
+    environment.define(stmt.name.lexeme, function);
+    return null;
+  }
+
+  @Override
+  public Void visitReturnStmt(Stmt.Return stmt) {
+    Object value = null;
+    if (stmt.value != null) value = evaluate(stmt.value);
+
+    throw new Return(value);
   }
 
   @Override
