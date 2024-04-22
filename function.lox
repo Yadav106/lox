@@ -1,5 +1,5 @@
 fun log(val) {
-  var val = "nice";
+  val = "nice";
   print val;
 }
 
