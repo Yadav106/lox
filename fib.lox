@@ -1,14 +1,9 @@
 fun fib(n) {
-  if (n <= 1) return n;
-  return fib(n - 2) + fib(n - 1);
+  if (n < 2) return n;
+  return fib(n - 1) + fib(n - 2); 
 }
 
-var a = clock();
-for (var i = 0; i < 20; i = i + 1) {
-  print fib(i);
-}
-var b = clock();
-
-print "";
-print "time taken : ";
-print b - a;
+var before = clock();
+print fib(40);
+var after = clock();
+print after - before;
